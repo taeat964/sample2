@@ -1,0 +1,151 @@
+@charset "utf-8";
+
+/* 기본 설정 */
+* { box-sizing: border-box; font-family: 'Pretendard', sans-serif; margin: 0; padding: 0; }
+html, body { 
+    width: 100%;
+    height: 100%; 
+    overflow: hidden;  
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+/* 1. 상단 영역 */
+.section-top {
+    flex: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.top-logo {
+    max-height: 50px;
+    width: auto;
+}
+
+/* 2. 중심 영역 */
+.section-center {
+    flex: 7;
+    display: flex;
+    gap: 15px;
+    margin: 15px 35px;
+}
+
+.banner {
+    position: relative;
+    height: 100%;
+    border-radius: 20px; 
+    overflow: hidden;    
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: flex 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    flex: 1; 
+}
+
+.overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2;
+}
+
+.content {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    width: 90%;
+    z-index: 10;
+    white-space: nowrap; 
+}
+
+/* --- [배너별 배경 설정] --- */
+/* banner-main에 입자 효과가 있는 GIF나 다른 이미지를 넣으세요 */
+.banner-main { 
+    background: url('main_bg.gif') center/cover no-repeat; /* GIF 파일명으로 수정 */
+    flex: 5; 
+}
+.banner-main .overlay { background-color: rgba(0, 0, 0, 0.5); }
+
+.banner-tedu { 
+    background: url('https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop') center/cover no-repeat; 
+    flex: 2;
+}
+.banner-tedu .overlay { background-color: rgba(0, 102, 255, 0.7); }
+
+.banner-tmes { 
+    background: url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat; 
+    flex: 2;
+}
+.banner-tmes .overlay { background-color: rgba(30, 41, 59, 0.85); }
+
+.banner-tpass { 
+    background: url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat; 
+    flex: 2;
+}
+.banner-tpass .overlay { background-color: rgba(20, 184, 166, 0.8); }
+
+/* --- [PC 인터랙션] --- */
+.section-center:hover .banner { flex: 2; }
+.section-center .banner:hover { flex: 5; }
+
+.brand-name { 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    margin-bottom: 10px; 
+    transition: font-size 0.5s ease;
+}
+
+/* PC 폰트 크기 */
+.banner-main .brand-name { font-size: 3.5rem; }
+.banner-tedu .brand-name, .banner-tmes .brand-name, .banner-tpass .brand-name { font-size: 2rem; }
+.section-center:hover .banner .brand-name { font-size: 2rem; }
+.section-center .banner:hover .brand-name { font-size: 3.5rem !important; }
+
+.brand-desc { font-size: 1.2rem; font-weight: 500; margin-bottom: 25px; }
+
+.btn {
+    display: inline-block;
+    color: #fff;
+    border: 1.5px solid #fff;
+    padding: 8px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* 3. 하단 영역 */
+.section-bottom {
+    flex: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* =========================================
+   [모바일 반응형]
+   ========================================= */
+@media(max-width: 768px) {
+    .section-center {
+        flex-direction: column;
+        margin: 5px 20px;
+        gap: 10px;
+    }
+    .banner { flex: 1 !important; }
+    .section-center:hover .banner, .section-center .banner:hover { flex: 1 !important; }
+
+    .brand-name, .banner-main .brand-name, .section-center:hover .banner .brand-name { 
+        font-size: 1.5rem !important; 
+        white-space: normal !important;
+    }
+    .brand-desc { font-size: 0.8rem !important; white-space: normal !important; }
+    .pc-only { display: none !important; }
+}

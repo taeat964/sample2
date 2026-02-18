@@ -1,0 +1,652 @@
+@charset "utf-8";
+
+/* =========================================
+   [1. Design System & Reset]
+   ========================================= */
+:root {
+    --primary: #D50000;       /* Main Red */
+    --primary-dark: #9B0000;
+    --secondary: #1E3A8A;     /* Deep Blue */
+    --secondary-light: #E3F2FD;
+    --primary-color: #0066ff; /* For Top Nav */
+    
+    --text-main: #111;
+    --text-sub: #555;
+    --bg-body: #fff;
+    --bg-light: #F8F9FA;
+    
+    --radius-xl: 40px;
+    --radius-md: 20px;
+    --shadow-card: 0 10px 30px rgba(0,0,0,0.08);
+    --shadow-hover: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
+body { color: var(--text-main); line-height: 1.6; background-color: var(--bg-body); word-break: keep-all; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+img { width: 100%; height: 100%; object-fit: cover; }
+br { display: block; }
+
+/* "T-MES 핵심 기능" 타이틀 PC 폰트 크기 (H3와 동일하게 36px) */
+.tmes-title {
+    font-size: 36px; 
+}
+
+/* Utilities */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.text-center { text-align: center; }
+.flex-center { display: flex; justify-content: center; align-items: center; }
+
+/* Mobile Only Utility (기본: 모바일에서만 줄바꿈/보임) */
+.mobile-only { display: block; }
+.mo-only { display: none; } /* 필요 시 사용 */
+.badge { display: none !important; } /* 배지 전체 숨김 */
+
+/* PC(웹) 화면일 경우 유틸리티 재정의 (768px 이상) */
+@media (min-width: 768px) {
+    .mobile-only { display: none; }
+}
+
+/* PC Only Utility: 모바일(1024px 이하)에서는 숨김 */
+.pc-only { display: block; }
+
+@media (max-width: 1024px) {
+    .pc-only { display: none; }
+}
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 50px; font-weight: 700; transition: 0.3s; font-size: 16px; cursor: pointer; }
+.btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 15px rgba(213,0,0,0.3); }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-3px); }
+.btn-white { background: #fff; color: var(--primary); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.btn-white:hover { transform: translateY(-3px); }
+.btn-main { display: inline-block; padding: 10px 20px; background-color: #000000; color: var(--primary); font-weight: 700; border-radius: 30px; font-size: 16px; box-shadow: 0 4px 10px rgba(124, 0, 0, 0.05); transition: all 0.3s ease; }
+.btn-main:hover { background-color: var(--primary); color: #fff; transform: translateX(-3px); box-shadow: 10px 6px 15px rgba(134, 0, 0, 0.5); }
+
+/* Section Commons */
+.section-padding { padding: 100px 0; }
+.section-title { font-size: 40px; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
+.section-desc { font-size: 18px; color: var(--text-sub); max-width: 800px; margin-bottom: 40px; }
+.section-cta { background: #111; color: #fff; text-align: center; }
+
+/* =========================================
+   [2. Header & Hero]
+   ========================================= */
+header {
+    background: #111; color: #fff;
+    padding: 140px 0 180px;
+    position: relative; overflow: hidden;
+    border-bottom-left-radius: var(--radius-xl);
+    border-bottom-right-radius: var(--radius-xl);
+}
+header::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px; opacity: 0.6;
+}
+header::after {
+    content: ''; position: absolute; top: -20%; right: -10%; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(213,0,0,0.3) 0%, transparent 70%);
+    filter: blur(60px); pointer-events: none;
+}
+
+.top-nav { position: absolute; top: 30px; left: 0; right: 0; z-index: 100; text-align: left; }
+.nav-bar { position: absolute; top: 0; left: 0; width: 100%; padding: 24px 0; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+.logo { font-size: 24px; font-weight: 900; letter-spacing: -0.5px; }
+.nav-links a { margin-left: 30px; font-weight: 600; font-size: 15px; opacity: 0.8; }
+.nav-links a:hover { opacity: 1; color: var(--primary); }
+
+.hero-content { position: relative; z-index: 2; text-align: center; max-width: 900px; margin: 0 auto; }
+.hero-title { font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
+.hero-desc { font-size: 20px; color: #ccc; margin-bottom: 40px; }
+
+/* =========================================
+   [3. Stats & Cards]
+   ========================================= */
+.hero-cards-wrapper { margin-top: -120px; position: relative; z-index: 5; margin-bottom: 60px; }
+.hero-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.card-stat {
+    background: #fff; padding: 32px; border-radius: 24px;
+    box-shadow: var(--shadow-card); text-align: left; position: relative;
+    transition: 0.3s; border: 1px solid #eee; overflow: hidden;
+    height: 250px;
+}
+.card-stat:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); border-color: var(--primary); }
+.cs-icon { position: absolute; bottom: 0px; right: 25px; margin: 10px; font-size: 48px; z-index: 5; }
+.cs-value { font-size: 36px; font-weight: 800; color: var(--text-main); margin-bottom: 5px; }
+.cs-label { font-size: 15px; color: var(--text-sub); font-weight: 600; }
+.card-stat::after { content:''; position: absolute; bottom:0; left:0; width:100%; height:6px; background: #eee; transition:0.3s; }
+.card-stat:hover::after { background: var(--primary); }
+
+/* =========================================
+   [4. Split Layout (PC Defaults)]
+   ========================================= */
+.split-section { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 80px; padding: 100px 0; border-bottom: 1px solid #eee; }
+.split-section.reverse { direction: rtl; } 
+.split-section.reverse .split-content { direction: ltr; }
+
+.split-visual {
+    background: var(--bg-light); border-radius: 30px; height: 480px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; box-shadow: inset 0 0 40px rgba(0,0,0,0.03);
+}
+.mockup-ui {
+    width: 80%; height: 75%; background: #fff; border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-weight: bold; color: #ccc; font-size: 14px; position: relative; z-index: 2;
+}
+.split-content h3 { font-size: 36px; font-weight: 800; margin-bottom: 20px; line-height: 1.3; }
+.split-content p { font-size: 18px; color: var(--text-sub); margin-bottom: 30px; }
+
+.usage-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.u-tag { background: #f0f0f0; padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; color: #555; }
+
+/* =========================================
+   [5. Feature Grid & Vision]
+   ========================================= */
+.feature-grid-8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 60px; }
+.feature-grid-bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(180px, auto); gap: 24px; margin-top: 50px; }
+
+.feature-box {
+    background: #fff; border: 2px solid #eee; border-radius: 24px; padding: 30px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+}
+.feature-box:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-color: var(--primary); z-index: 2; }
+
+/* 기본 아이콘 스타일 */
+.fb-icon {
+    font-size: 32px; margin-bottom: 20px; display: inline-block;
+    width: 60px; height: 60px; background: var(--bg-light); border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+}
+.fb-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; color: var(--text-main); line-height: 1.3; }
+.fb-desc { font-size: 15px; color: var(--text-sub); line-height: 1.5; margin: 0; }
+
+/* 1. Large 박스 레이아웃 및 배경 설정 */
+.feature-box.large {
+    grid-column: span 2; 
+    grid-row: span 2;
+    background: linear-gradient(135deg, #fff 0%, #fff5f5 100%); 
+    border: 2px solid #ffebee;
+    position: relative;
+    overflow: hidden; /* 배경 아이콘 잘림 처리 */
+}
+
+/* 2. 배경 오브제 아이콘 (우측 하단 배경용) */
+.feature-box.large .bg-object {
+    position: absolute;
+    bottom: 10px;      
+    right: -10px;       
+    font-size: 200px;   
+    opacity: 0.09;      
+    z-index: 1;         
+    pointer-events: none; 
+    line-height: 1;
+    filter: grayscale(100%);
+}
+
+/* 3. Large 박스 내부 메인 아이콘 (크기 확대 및 중복 속성 제거됨) */
+.feature-box.large .fb-icon {
+    width: 100px;        /* 크기 확대 */
+    height: 100px;       /* 크기 확대 */
+    font-size: 56px;      /* 아이콘 폰트 크기 확대 */
+    margin-bottom: 25px; 
+    background: #fff; 
+    color: var(--primary); 
+    box-shadow: 0 10px 20px rgba(213,0,0,0.1);
+}
+
+/* 4. Large 박스 텍스트 및 제목 (여백 조절) */
+.feature-box.large .fb-title { 
+    font-size: 28px; 
+    margin-bottom: 15px; 
+    
+    /* [수정] 텍스트를 아래로 내리기 위한 여백 추가 */
+    margin-top: 30px;  /* 이 값을 늘리면 더 아래로, 줄이면 위로 올라갑니다 */
+    
+    position: relative; 
+    z-index: 2; 
+}
+
+.feature-box.large .fb-desc {
+    font-size: 17px; 
+    max-width: 80%;
+    
+    /* 기존 하단 여백 유지 (필요시 조절) */
+    margin-bottom: 20px; 
+    
+    position: relative; 
+    z-index: 2;
+}
+/* Wide 박스 및 기타 */
+.feature-box.wide { grid-column: span 2; background: #f8f9fa; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left; }
+.vision-card {
+    background: #f9f9f9; padding: 30px; border-radius: 20px;
+    border: 1px solid transparent; transition: 0.3s; height: 100%;
+}
+.vision-card:hover { background: #fff; border-color: #eee; box-shadow: var(--shadow-card); }
+.vc-icon { font-size: 32px; margin-bottom: 15px; display: block; }
+.vc-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+.vc-desc { font-size: 15px; color: var(--text-sub); line-height: 1.5; }
+
+/* =========================================
+   [6. Timeline / Check List]
+   ========================================= */
+.feature-check-list.timeline-list {
+    position: relative; display: flex; flex-direction: column; gap: 30px;
+    margin-top: 30px; padding-left: 0 !important; list-style: none !important; z-index: 1;
+}
+
+.feature-item {
+    display: flex; align-items: center !important; position: relative; opacity: 0.5;
+    transform: none !important; transition: opacity 0.3s ease;
+    cursor: pointer; padding: 0 !important; margin: 0 !important; z-index: auto;
+}
+.feature-item.active { opacity: 1; }
+
+.f-icon-wrap {
+    width: 32px; height: 32px; flex-shrink: 0;
+    display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 2; background: var(--bg-light);
+    border-radius: 50%; margin-right: 20px;
+}
+
+.status-indicator {
+    width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 50%;
+    background: var(--bg-light); position: relative; z-index: 3; transition: 0.3s; box-sizing: border-box;
+}
+.feature-item.active .status-indicator {
+    background: var(--primary); border-color: var(--primary);
+    box-shadow: 0 4px 10px rgba(213,0,0,0.3); width: 24px; height: 24px;
+}
+.feature-item.active .status-indicator::after {
+    content: ''; position: absolute; top: 45%; left: 50%;
+    width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0;
+    transform: translate(-50%, -60%) rotate(45deg); display: block;
+}
+
+.f-content-box {
+    background: #fff; border: 1px solid #eee; border-radius: 16px;
+    padding: 18px 24px; flex-grow: 1; transition: 0.3s;
+    margin-top: 0 !important;
+}
+.feature-item.active .f-content-box { border-color: var(--primary); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+.f-content-box strong { display: block; font-size: 17px; color: var(--text-main); margin-bottom: 6px; }
+.f-content-box p { font-size: 15px; color: var(--text-sub); margin: 0; line-height: 1.5; }
+
+/* 잔여 요소 제거 */
+.feature-item::after, .feature-check-list li::before, .status-indicator::before, .feature-item:not(:last-child)::before, .feature-check-list.timeline-list::before {
+    content: none !important; display: none !important;
+}
+
+/* =========================================
+   [7. Footer & Animation]
+   ========================================= */
+footer { background: #000; color: #666; padding: 50px 0; text-align: center; font-size: 14px; border-top: 1px solid #222; }
+
+.scroll-animate {
+    opacity: 0; transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); will-change: opacity, transform;
+}
+.scroll-animate.visible { opacity: 1; transform: translateY(0); }
+
+/* Mobile (Max 768px) */
+@media (max-width: 768px) {
+    .hero-cards {
+        display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+        gap: 16px; padding-bottom: 20px; margin: 0 -24px; padding-left: 24px; padding-right: 24px;
+    }
+    .hero-cards::-webkit-scrollbar { display: none; }
+    .card-stat { min-width: 85%; scroll-snap-align: center; height: 220px; }
+    
+    .scroll-animate { transition-duration: 0.5s; transform: translateY(30px); }
+    
+    .feature-text {
+        width: 100%; max-width: 1200px; margin: 0 auto; padding: 60px 20px;
+        text-align: center; font-size: 20px; line-height: 1.6; word-break: keep-all;
+    }
+}
+
+/* Tablet & Small Laptop (Max 1024px) */
+@media (max-width: 1024px) {
+    
+    /* [1. 기본 설정 및 초기화] */
+    .hero-title { font-size: 36px; }
+    .hero-cards { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .feature-grid-8 { grid-template-columns: 1fr 1fr; } 
+    .feature-grid-bento { grid-template-columns: repeat(2, 1fr); } 
+    .mo-only { display: none !important; }
+    .tmes-title {
+        font-size: 28px !important;
+    }
+
+    .card-stat .cs-value {
+        font-size: 22px !important;  /* PC 36px -> 22px 로 축소 */
+        margin-bottom: 4px !important;
+    }
+
+    /* 2. 서브 타이틀(영문) 크기 조절 */
+    .card-stat .cs-label {
+        font-size: 13px !important;  /* 15px -> 13px 로 축소 */
+        opacity: 0.8 !important;
+    }
+
+    /* 3. 아이콘 크기 조절 및 위치 최적화 */
+    .card-stat .cs-icon {
+        font-size: 40px !important;  /* PC 48px -> 40px 로 적절히 축소 */
+        
+        /* 모바일에서 아이콘 위치를 살짝 안쪽으로 당김 */
+        right: 10px !important;      
+        bottom: 0px !important;
+    }
+
+    /* 4. 카드 높이 및 본문 텍스트 조절 (밸런스 맞춤) */
+    .card-stat {
+        height: 180px !important;    /* PC 250px -> 180px 로 카드 높이 축소 */
+        padding: 24px 20px !important;
+    }
+
+    .card-stat p {
+        font-size: 13px !important;
+        margin-top: 10px !important;
+        line-height: 1.4 !important;
+        max-width: 75% !important;   /* 아이콘과 글자가 겹치지 않게 너비 제한 */
+    }
+
+    /* [2. Split Section (TMES 상단) 모바일 최적화] */
+    .split-section { 
+        display: flex !important; 
+        flex-direction: column !important;
+        padding: 30px 0; /* 상하 여백 축소 */
+        gap: 20px;       /* 요소 간 간격 축소 */
+    }
+    
+    .split-content { display: contents !important; } 
+    .split-content .badge { display: none !important; }
+
+    /* [순서 1] 제목 */
+    .split-content h3 { 
+        order: 1; width: 100%;
+        font-size: 28px !important;
+        font-weight: 800;
+        line-height: 1.3; margin-bottom: 5px; 
+        text-align: center; 
+    }
+
+    /* [순서 2] Visual/Image (기존 수치 고정) */
+    .split-visual { 
+        order: 2;
+        width: 90% !important; max-width: 360px !important;
+        height: 100px !important; margin: 0 auto !important; 
+        background: #f8f9fa; border-radius: 16px;
+        display: flex !important; align-items: center; justify-content: center;
+        overflow: hidden; 
+    }
+    .split-visual .mockup-ui { 
+        width: 100%; height: 100%; border: none; border-radius: 0;
+        background: transparent; display: flex; align-items: center; justify-content: center;
+    }
+    .split-visual img {
+        height: 180% !important; width: auto !important; object-fit: contain; 
+    }
+
+    /* [순서 3] 설명 텍스트 */
+    .split-content p,
+    .split-content .feature-text { 
+        order: 3; 
+        font-size: 14px !important;
+        color: #555;
+        margin: 8px 0 0 0;
+        line-height: 1.5;
+        text-align: center; word-break: keep-all; padding: 0 10px; 
+    }
+
+    /* [순서 4] 기능 리스트 (Compact Grid) */
+    .feature-check-list { 
+        order: 4;
+        width: 100%; max-width: 100%;
+        margin-top: 20px;
+        padding-left: 0 !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px !important; 
+        text-align: left !important; 
+    }
+    .feature-item { margin-bottom: 0 !important; height: 100%; width: 100%; }
+    .feature-item .f-icon-wrap { display: none !important; }
+
+    .f-content-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important; 
+        text-align: left !important;
+        height: 100%; 
+        margin: 0 !important; 
+        padding: 12px 10px !important; 
+    }
+    .f-content-box strong { 
+        font-size: 13px; margin-bottom: 3px; width: 100%; display: block; color: #222;
+    }
+    .f-content-box p { 
+        font-size: 12px; line-height: 1.35; text-align: left !important;
+        margin: 0 !important; padding: 0 !important; color: #666;
+    }
+
+    /* [순서 5] 활용사례 태그 */
+    .split-content > div:last-child {
+        order: 5; text-align: center !important; margin-top: 15px;
+    }
+    .usage-tags {
+        display: flex !important; flex-direction: row !important; justify-content: center !important;
+    }
+
+
+   /* 1. 그리드 레이아웃 (2열) */
+    .feature-grid-bento { 
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 12px !important;
+        margin-top: 20px !important;
+    }
+
+    .feature-box {
+        min-height: auto !important;
+        height: auto !important;
+        padding: 20px 12px !important; 
+        
+        display: flex !important;
+        flex-direction: column !important;
+        
+        /* [핵심] 중앙 정렬 적용 */
+        align-items: center !important; 
+        text-align: center !important;
+        justify-content: flex-start !important; 
+    }
+
+    .feature-box.large,
+    .feature-box.wide {
+        grid-column: span 2 !important; /* 가로 꽉 차게 */
+        grid-row: auto !important;
+        
+        /* 높이 맞춤 (이전 요청사항 유지) */
+        min-height: 220px !important;   
+        
+        /* [핵심] 중앙 정렬 제외 -> 왼쪽 정렬 복구 */
+        align-items: flex-start !important; 
+        text-align: left !important;
+        justify-content: center !important; /* 수직 중앙 정렬 */
+        padding: 24px 20px !important;      /* 패딩을 좀 더 넉넉하게 */
+    }
+
+    .feature-box.large .bg-object { display: none !important; } /* 배경 그림만 숨김 */
+    .feature-box.large .fb-icon {
+        background: #fff !important; 
+        color: var(--primary) !important; /* 빨간색 */
+        box-shadow: 0 5px 15px rgba(213,0,0,0.1) !important;
+    }
+
+    .feature-box.wide .fb-icon {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 38px !important;
+        margin-bottom: 22px !important;
+        background: #fff !important; 
+        box-shadow: 0 5px 15px rgba(46, 0, 0, 0.1) !important;
+    }
+
+    /* (1) 모든 아이콘 크기 50px로 확대 */
+    .feature-box .fb-icon,
+    .feature-box.wide .fb-icon,
+    .feature-box.large .fb-icon {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 28px !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* (2) 텍스트 크기 */
+    .feature-box .fb-title,
+    .feature-box.wide .fb-title,
+    .feature-box.large .fb-title {
+        font-size: 16px !important;
+        margin-top: 10px !important;
+        margin-bottom: 6px !important;
+        font-weight: 700 !important;
+    }
+
+    .feature-box .fb-desc,
+    .feature-box.wide .fb-desc,
+    .feature-box.large .fb-desc {
+        font-size: 14px !important;
+        line-height: 1.45 !important;
+        margin-bottom: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .section-title {
+        font-size: 28px !important; /* 기존 40px -> 28px 축소 */
+        font-weight: 800 !important;
+        margin-bottom: 15px !important;
+        line-height: 1.3 !important;
+    }
+
+    .section-desc {
+        font-size: 15px !important; /* 기존 18px -> 15px 축소 */
+        line-height: 1.5 !important;
+        max-width: 100% !important;
+        margin-bottom: 40px !important;
+        padding: 0 10px !important; /* 양옆 여백 살짝 줌 */
+    }
+
+    #vision {
+        padding-top: 60px !important;    /* PC(100px) 대비 대폭 축소 */
+        padding-bottom: 40px !important; 
+        
+        /* 섹션 자체의 외부 여백 조절 (필요시) */
+        margin-bottom: 20px !important;  
+    }
+
+    /* 2. 설명글(Subtitle) 아래 여백 줄이기 -> 카드와 가까워지게 */
+    #vision .section-desc {
+        margin-bottom: 30px !important;  /* 기존 60px -> 30px 로 축소 */
+    }
+
+    /* 3. 제목(Title) 아래 여백 줄이기 */
+    #vision .section-title {
+        margin-bottom: 30px !important;
+    }
+
+    /* 4. 카드 그리드 상단 여백 제거 (혹시 있을 여백 초기화) */
+    #vision .grid-3 {
+        margin-top: 0 !important;
+        gap: 24px !important; /* 카드 사이 간격 */
+    }
+
+    .vision-card {
+        border-top-width: 5px !important; /* 모바일에서 조금 더 날렵하게 수정 */
+        margin-bottom: 0 !important;
+        padding: 24px 20px !important;
+    }
+
+    .vision-card .vc-title {
+        font-size: 18px !important;
+    }
+
+    #contact {
+        padding: 80px 0 !important; /* 기존 80px -> 50px 축소 */
+    }
+
+    /* 2. 제목 텍스트 ("지금 바로 도입하세요") 크기 조절 */
+    #contact h2 {
+        font-size: 28px !important;  /* 기존 42px -> 24px 로 대폭 축소 */
+        margin-bottom: 12px !important;
+        line-height: 1.3 !important;
+    }
+
+    /* 3. 설명 텍스트 ("AITP T-MES와 함께하는...") 크기 조절 */
+    #contact p {
+        font-size: 15px !important;  /* 기존 18px -> 15px 로 축소 */
+        line-height: 1.5 !important;
+        opacity: 0.8 !important;     /* 가독성을 위해 불투명도 약간 올림 */
+        padding: 0 20px !important;  /* 텍스트 줄바꿈 시 여백 확보 */
+        word-break: keep-all;        /* 단어 단위 줄바꿈 */
+    }
+
+}
+
+/* [중요] 600px 이하에서도 2열 유지 (기존 1열 코드 무력화) */
+@media (max-width: 600px) {
+    .feature-grid-bento { 
+        display: grid !important; 
+        grid-template-columns: repeat(2, 1fr) !important; 
+    }
+}
+
+/* 1. 카드 본체: 아이콘이 밖으로 나가지 않도록 자르고, 기준점 설정 */
+.vision-card {
+    position: relative !important; 
+    overflow: hidden !important;
+    z-index: 1;
+}
+
+/* 2. 아이콘(.vc-icon): 우측 상단 배치, 투명도 조절, 회전 */
+.vc-icon {
+    position: absolute !important;
+    top: -20px !important;       /* 위쪽 끝에 걸치게 */
+    right: -10px !important;     /* 오른쪽 끝에 걸치게 */
+    
+    font-size: 110px !important; /* 아주 크게 키움 */
+    width: auto !important;      /* 크기 제한 해제 */
+    height: auto !important;
+    
+    opacity: 0.12 !important;    /* 배경처럼 은은하게 */
+    transform: rotate(15deg) !important; /* 살짝 기울여서 자연스러운 오브제 느낌 */
+    
+    margin: 0 !important;        /* 기존 여백 제거 */
+    z-index: 0 !important;       /* 글자 뒤로 보내기 */
+    
+    /* 기존 배경색 등의 스타일 초기화 */
+    background: transparent !important; 
+}
+
+/* 3. 텍스트: 아이콘 위로 올라오도록 순서 조정 */
+.vc-title, 
+.vc-desc {
+    position: relative !important;
+    z-index: 2 !important;       /* 배경 아이콘보다 위에 표시 */
+}
+
+/* 4. 제목 상단 여백 추가 (아이콘이 빠진 자리 보정) */
+.vc-title {
+    margin-top: 10px !important;
+}
